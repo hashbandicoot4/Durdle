@@ -1,5 +1,5 @@
 const express = require("express");
-const { response } = require('../../Durham/First_Year/COMP 1111 - Programming/Website Summative Assessment/app');
+const { response } = require("app.js");
 
 const app = express();
 // Interact with file system
@@ -12,11 +12,12 @@ app.use(express.json());
 const durdle = fs.readFileSync("durdle-allowed-guesses.txt", 
     {encoding: "utf-8", flag: "r"});
 
-console.log(durdle);
+// Constant random seed per day
 
-// Get 5 words and 
+const wordSet = ["jeans", "pipes", "ultra", "disco", "unity"];
+
+// Get 5 words set
 app.get("/words", function(req, res) {
-    // Depending on the guess we are currently on
     res.json(wordSet)
 });
 
