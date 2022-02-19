@@ -13,10 +13,14 @@ const durdle = fs.readFileSync("durdle-allowed-guesses.txt", function(err,data) 
     obj = JSON.parse(data);
 });
 
+console.log(durdle);
+
 // Constant random seed per day
 
 const wordSet = ["jeans", "pipes", "ultra", "disco", "unity"];
-wordSet = JSON.parse(wordSet);
+daily_wordSet = JSON.stringify(wordSet);
+
+console.log(daily_wordSet);
 
 // Get all valid words
 app.get("/validWords", function(req, res) {
