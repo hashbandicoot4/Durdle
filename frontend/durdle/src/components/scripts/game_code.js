@@ -16,7 +16,7 @@ function comparewords(input, target) {
     for (let i = 0; i < 5; i++) {
         if (wordscore[i] == 0) {
             if (input[i] in target) {
-                let temp = list(target);
+                let temp = target.split('');
                 temp[target.indexof(input[i])] = '*';
                 target = ''.concat(temp);
                 wordscore[i] = 1;
@@ -26,8 +26,8 @@ function comparewords(input, target) {
     return wordscore;
 }
 
-function checkvalid(word) {
-    return word in VALID_WORDS;
+function checkvalid(word, validWords) {
+    return word in validWords;
 }
 
 function getinput() {
@@ -48,7 +48,7 @@ function main() {
     let userscore = [];
     //HANDLE GETTING CUR GUESS
     if (checkvalid(cur_guess) == false) {
-        print('INVALID GUESS');
+        console.log('INVALID GUESS');
         //HANDLE THIS
     }
 
@@ -64,3 +64,7 @@ function main() {
 }
 
 main();
+
+const exports = { comparewords, checkvalid };
+
+export default exports;
