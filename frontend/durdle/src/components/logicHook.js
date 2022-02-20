@@ -47,14 +47,14 @@ export const useLogic = () => {
     const [validWords, setValidWords] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/validwords')
+        fetch('http://localhost:8080/validwords' || 'https://durdle.tech/validwords')
             .then(res => res.json())
             .then(res => setValidWords(res))
             .catch(error => {
                 console.error('Error:', error);
             });
         // setValidWords(validWordList);
-        fetch('http://localhost:8080/dailyWordSet')
+        fetch('http://localhost:8080/dailyWordSet' || 'https://durdle.tech/dailyWordSet')
             .then(res => res.json())
             .then(res => setDayWords(['', ...res]))
             .catch(error => {

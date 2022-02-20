@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "durdle",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
