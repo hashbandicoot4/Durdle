@@ -19,5 +19,8 @@
   "keywords": [
     "durdle"
   ],
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
