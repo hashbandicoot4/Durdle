@@ -54,6 +54,7 @@ const Game = () => {
                                     setInput(input.slice(0, -1));
                                 } else if (key == 'Enter') {
                                     handleGuess(input);
+                                    setInput('');
                                 } else {
                                     setInput(input + key);
                                 }
@@ -71,6 +72,7 @@ const Game = () => {
                             onSubmit={ev => {
                                 ev.preventDefault();
                                 handleGuess(input);
+                                setInput('');
                             }}
                         >
                             <label>
