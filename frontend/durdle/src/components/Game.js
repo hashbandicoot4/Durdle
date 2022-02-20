@@ -12,13 +12,13 @@ const Game = () => {
             <p>Test</p>
             <Row>
                 <Col>
-                    {guesses.map(guess => (
-                        <p key={guess}>{guess}</p>
+                    {guesses.map((guess, i) => (
+                        <p key={`g${i}`}>{guess}</p>
                     ))}
                 </Col>
                 <Col>
-                    {scores.map(scorelist => (
-                        <p key={scorelist.join('')}>{scorelist.join('')}</p>
+                    {scores.map((scorelist, i) => (
+                        <p key={`s${i}`}>{scorelist.join('')}</p>
                     ))}
                 </Col>
             </Row>

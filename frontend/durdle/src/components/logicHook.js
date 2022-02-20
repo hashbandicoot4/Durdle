@@ -47,8 +47,20 @@ export const useLogic = () => {
     const [validWords, setValidWords] = useState([]);
 
     useEffect(() => {
-        setValidWords(validWordList);
-        setDayWords(['', 'later', 'trees', 'unity', 'cloud', 'disco']);
+        fetch('http://localhost:8080/validwords')
+            .then(res => res.json())
+            .then(res => setValidWords(res))
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        // setValidWords(validWordList);
+        fetch('http://localhost:8080/dailyWordSet')
+            .then(res => res.json())
+            .then(res => setDayWords(['', ...res]))
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        // setDayWords(['', 'later', 'trees', 'unity', 'cloud', 'disco']);
     }, []);
 
     const handleGuess = guess => {
@@ -79,7 +91,7 @@ export const useLogic = () => {
             let temp = [...dayWords];
             temp.shift();
             setDayWords([...temp]);
-            if (temp.length == 0) {
+            if (temp.length == 1) {
                 setLose(true);
                 return 'lose';
             }
