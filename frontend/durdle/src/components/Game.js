@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
 import { useLogic } from './logicHook';
-import { Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 import Keyboard from './keyboard';
 import OutputRow from './OutputRow';
 
 const Game = () => {
     const { guesses, scores, win, lose, handleGuess } = useLogic();
     const [input, setInput] = useState('');
+
+    const scoreToEmoji = scores => {
+        const keys = ['⬜', '🟨', '🟩'];
+        let output = '';
+        for (let s of scores) {
+            let row = '';
+            for (let score of s) {
+                row += keys[score];
+            }
+            row += '\n';
+            output += row;
+        }
+        return output;
+    };
+
+    const copy = async text => {
+        await navigator.clipboard.writeText(text);
+        alert('Copied to clipboard: \n' + text);
+    };
 
     return (
         <div>
@@ -35,6 +54,7 @@ const Game = () => {
                                     setInput(input.slice(0, -1));
                                 } else if (key == 'Enter') {
                                     handleGuess(input);
+                                    setInput('');
                                 } else {
                                     setInput(input + key);
                                 }
@@ -52,6 +72,7 @@ const Game = () => {
                             onSubmit={ev => {
                                 ev.preventDefault();
                                 handleGuess(input);
+                                setInput('');
                             }}
                         >
                             <label>
@@ -64,6 +85,28 @@ const Game = () => {
                             </label>
                         </form>
                     </Row>
+                    {win && (
+                        <Row>
+                            <h1>You Win!</h1>
+                        </Row>
+                    )}
+                    {lose && (
+                        <Row>
+                            <h1>You Lose!</h1>
+                        </Row>
+                    )}
+                    {(win || lose) && (
+                        <Row>
+                            <Button
+                                onClick={() => {
+                                    let emojis = scoreToEmoji(scores);
+                                    copy(emojis);
+                                }}
+                            >
+                                Share
+                            </Button>
+                        </Row>
+                    )}
                 </Col>
             </Container>
             {/* <p>Test</p>
