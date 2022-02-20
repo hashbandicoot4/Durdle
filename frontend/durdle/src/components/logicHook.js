@@ -91,7 +91,7 @@ export const useLogic = () => {
             let temp = [...dayWords];
             temp.shift();
             setDayWords([...temp]);
-            if (temp.length == 0) {
+            if (temp.length == 1) {
                 setLose(true);
                 return 'lose';
             }

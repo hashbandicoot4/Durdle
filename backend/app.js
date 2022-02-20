@@ -21,7 +21,7 @@ const ValidWords = JSON.parse(fs.readFileSync('./valid-words.json'));
 console.log(ValidWords);
 
 // Constant random seed per day
-var wordSet = ['jeans', 'pipes', 'ultra', 'disco', 'unity'];
+var wordSet = ['jeans', 'pipes', 'ultra', 'disco', 'unity', 'boxes'];
 var dailyWordSet = JSON.stringify(wordSet);
 
 // Get all valid words
