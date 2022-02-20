@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLogic } from './logicHook';
 import { Col, Row } from 'reactstrap';
+import Keyboard from './keyboard';
 
 const Game = () => {
     const { guesses, scores, win, lose, handleGuess } = useLogic();
@@ -21,6 +22,18 @@ const Game = () => {
                     ))}
                 </Col>
             </Row>
+
+            <Keyboard handleClick={(key)=> {
+                if (key == "Backspace") {
+                    setInput(input.slice(0, -1));
+                }
+                else if (key == "Enter") {
+                    handleGuess(input);
+                }
+                else {
+                    setInput(input+key);
+                }
+            }}/>
             {/* <p>Guess</p>
             <input
                 onSubmit={ev => {
@@ -48,5 +61,7 @@ const Game = () => {
         </div>
     );
 };
+
+
 
 export default Game;
