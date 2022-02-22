@@ -1,9 +1,36 @@
 import { useEffect, useState } from 'react';
-import validWordList from './valid-words.json';
+import ValidWords from './valid-words.json';
+import Answers from './answers.json';
+
+
+
 
 function replaceat(str, index, newchar) {
     return str.substring(0, index) + newchar + str.substring(index + 1);
 }
+
+
+function parseDate(str) {
+    var mdy = str.split('/');
+    return new Date(mdy[2], mdy[0]-1, mdy[1]);
+}
+
+function datediff(first, second) {
+    // Take the difference between the dates and divide by milliseconds per day.
+    // Round to nearest whole number to deal with DST.
+    return Math.round((second-first)/(1000*60*60*24));
+}
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '/' + dd + '/' + yyyy;
+
+let dayno = datediff(parseDate("02/20/2022"), parseDate(today));
+
+
 
 function comparewords(input, target) {
     console.log(input);
@@ -47,20 +74,9 @@ export const useLogic = () => {
     const [validWords, setValidWords] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/validwords' || 'https://durdle.tech/validwords')
-            .then(res => res.json())
-            .then(res => setValidWords(res))
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        // setValidWords(validWordList);
-        fetch('http://localhost:8080/dailyWordSet' || 'https://durdle.tech/dailyWordSet')
-            .then(res => res.json())
-            .then(res => setDayWords(['', ...res]))
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        // setDayWords(['', 'later', 'trees', 'unity', 'cloud', 'disco']);
+        Answers[dayno].unshift("")
+        setValidWords(ValidWords);     
+        setDayWords(Answers[dayno]);
     }, []);
 
     const handleGuess = guess => {

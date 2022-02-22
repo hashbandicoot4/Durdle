@@ -10,7 +10,7 @@ const Game = () => {
 
     const scoreToEmoji = scores => {
         const keys = ['⬜', '🟨', '🟩'];
-        let output = '';
+        let output = 'Daily Durdle Score:\n';
         for (let s of scores) {
             let row = '';
             for (let score of s) {
@@ -53,7 +53,7 @@ const Game = () => {
                                 if (key == 'Backspace') {
                                     setInput(input.slice(0, -1));
                                 } else if (key == 'Enter') {
-                                    handleGuess(input);
+                                    handleGuess(input.toLowerCase());
                                     setInput('');
                                 } else {
                                     setInput(input + key);
@@ -71,13 +71,13 @@ const Game = () => {
                         <form
                             onSubmit={ev => {
                                 ev.preventDefault();
-                                handleGuess(input);
+                                handleGuess(input.toLowerCase());
                                 setInput('');
                             }}
                         >
                             <label>
                                 Guess:
-                                <input
+                                <input autoFocus
                                     type="text"
                                     value={input}
                                     onChange={ev => setInput(ev.target.value)}
